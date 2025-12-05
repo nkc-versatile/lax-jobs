@@ -236,7 +236,7 @@
                         <!-- DEFAULT VALUE IS 25 -->
                         <input type="range" id="hours-slider" min="25" max="50" value="25" class="w-full h-2 bg-stone-300 rounded-lg appearance-none cursor-pointer accent-emerald-600">
                         <div class="flex justify-between mt-2 mb-6">
-                            <span class="text-xs text-stone-400">Min Guarantee (25h)</span>
+                            <span id="min-guarantee" class="text-xs text-stone-400">Min Guarantee (25h)</span>
                             <span id="hours-display" class="font-bold text-emerald-700 text-lg">25 hrs</span>
                             <span class="text-xs text-stone-400">Overtime (50h)</span>
                         </div>
@@ -322,14 +322,14 @@
                 
                 <div class="bg-stone-800 p-8 rounded-xl inline-block text-left w-full max-w-md border border-stone-700">
                     <div class="flex items-center space-x-4 mb-4">
-                        <div class="bg-stone-700 p-2 rounded-full text-white"><i class="fa-solid fa-user"></i></div>
+                        <div class="bg-stone-700 p-2 rounded-full text-amber-300"><i class="fa-solid fa-user"></i></div>
                         <div>
                             <p class="text-xs text-stone-400 uppercase">Contact Name</p>
                             <p class="font-bold text-white">Nick Chokshi</p>
                         </div>
                     </div>
                     <div class="flex items-center space-x-4 mb-4">
-                        <div class="bg-stone-700 p-2 rounded-full text-white"><i class="fa-solid fa-building"></i></div>
+                        <div class="bg-stone-700 p-2 rounded-full text-amber-300"><i class="fa-solid fa-building"></i></div>
                         <div>
                             <p class="text-xs text-stone-400 uppercase">Company</p>
                             <p class="font-bold text-white">Versatile Consulting</p>
@@ -337,7 +337,7 @@
                     </div>
                     <!-- Updated Contact Field -->
                     <div class="flex items-center space-x-4">
-                        <div class="bg-stone-700 p-2 rounded-full text-white"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="bg-stone-700 p-2 rounded-full text-amber-300"><i class="fa-solid fa-envelope"></i></div>
                         <div>
                             <p class="text-xs text-stone-400 uppercase">Email</p>
                             <p class="font-bold text-white break-all">nick@partnerwithversatile.com</p>
@@ -357,6 +357,10 @@
         const apiKey = ""; 
         const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
         const TTS_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+        // Declare variables globally (using let) for assignment later in the load function
+        let slider, displayHours, displayWeekly, displayMonthly, displayTotal;
+        let earningsChart;
 
         // Utility for exponential backoff (retry logic)
         async function fetchWithBackoff(url, options, maxRetries = 5) {
@@ -569,16 +573,13 @@
         const contractMonths = 8;
         const weeksPerMonth = 4; // Simplified
         
-        const slider = document.getElementById('hours-slider');
-        const displayHours = document.getElementById('hours-display');
-        const displayWeekly = document.getElementById('weekly-pay');
-        const displayMonthly = document.getElementById('monthly-pay');
-        const displayTotal = document.getElementById('total-pay');
-
         // Function to format currency
         const fmtMoney = (num) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
 
         function updateEarnings() {
+            // FIX: Ensure slider is defined before accessing its value
+            if (!slider) return;
+
             const hours = parseInt(slider.value);
             displayHours.innerText = `${hours} hrs`;
             
@@ -594,11 +595,7 @@
             updateChartData(total);
         }
 
-        slider.addEventListener('input', updateEarnings);
-
         // 3. Chart.js Implementation
-        let earningsChart;
-
         function initChart() {
             const ctx = document.getElementById('earningsChart').getContext('2d');
             
@@ -606,8 +603,8 @@
             const standardRate = 40;
             const standardTotal = standardRate * 40 * 4 * 8; // Fixed 40hr week reference
 
-            // Initial Total for This Job, calculated based on the new default minimum of 25 hours.
-            const initialHours = 25; 
+            // FIX: Use the currently assigned slider value (guaranteed to be found in initializeApp)
+            const initialHours = parseInt(slider.value);
             const initialThisJobTotal = hourlyRate * initialHours * 4 * 8; 
 
             const labels = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7', 'Month 8'];
@@ -631,7 +628,6 @@
                     labels: labels,
                     datasets: [
                         {
-                            // Restored color
                             label: 'This LAX Project ($80/hr, Min 25h/wk)',
                             data: dataThisJob,
                             borderColor: '#059669', // Emerald 600
@@ -715,12 +711,32 @@
             earningsChart.update();
         }
 
-        // Initialize on load
-        window.addEventListener('load', () => {
+        // --- Initialization (The Fix) ---
+        function initializeApp() {
+            // FIX: Assign element variables here to ensure the DOM is ready
+            slider = document.getElementById('hours-slider');
+            displayHours = document.getElementById('hours-display');
+            displayWeekly = document.getElementById('weekly-pay');
+            displayMonthly = document.getElementById('monthly-pay');
+            displayTotal = document.getElementById('total-pay');
+            
+            // Safety check for the critical element
+            if (!slider) {
+                console.error("Initialization error: Slider element not found.");
+                // We stop here if the main element is missing
+                return; 
+            }
+
+            // Set up the listener *after* the slider element is guaranteed to exist
+            slider.addEventListener('input', updateEarnings);
+
+            // Run initial states
             updateChecklistStatus(); 
             initChart();
             updateEarnings(); 
-        });
+        }
+
+        window.addEventListener('load', initializeApp);
 
     </script>
 </body>
