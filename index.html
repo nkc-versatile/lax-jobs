@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versatile Consulting | LAX Project Recruitment Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Added Font Awesome for professional icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Custom styling for chart containers to meet strict constraints */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Tailwind max-w-xl equivalent */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+        }
+        input[type=range]:focus {
+            outline: none; 
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans antialiased selection:bg-amber-200 selection:text-stone-900">
+
+    <!-- Navigation / Header (Restored Stone/Amber Palette) -->
+    <header class="bg-white border-b border-stone-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <!-- NEW LOGO SVG (Color adapted to stone/amber theme) -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-stone-800">
+                    <!-- Bars (Stone-800) -->
+                    <rect x="2" y="5" width="20" height="2" fill="currentColor"/>
+                    <rect x="2" y="11" width="20" height="2" fill="currentColor"/>
+                    <rect x="2" y="17" width="20" height="2" fill="currentColor"/>
+                    <!-- Diamond (Amber Accent) -->
+                    <path d="M12 2L15 8H9L12 2Z" fill="#FBBF24"/>
+                </svg>
+                <!-- Restored text color -->
+                <span class="font-bold text-xl tracking-tight text-stone-900">Versatile <span class="text-amber-600">Consulting</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <!-- Restored link colors -->
+                <a href="#briefing" class="text-stone-600 hover:text-stone-900 font-medium transition">Project Brief</a>
+                <a href="#scope" class="text-stone-600 hover:text-stone-900 font-medium transition">Scope</a>
+                <a href="#earnings" class="text-stone-600 hover:text-stone-900 font-medium transition">Earnings</a>
+            </nav>
+            <!-- Restored button color -->
+            <a href="#contact" class="bg-stone-900 text-white px-4 py-2 rounded-md font-medium hover:bg-stone-800 transition shadow-sm">
+                Contact Now
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section (Restored Colors) -->
+    <div class="bg-white border-b border-stone-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <div class="inline-block bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-sm font-semibold mb-6">
+                    Immediate Opening &bull; Night Shift
+                </div>
+                <!-- Restored text color -->
+                <h1 class="text-4xl md:text-5xl font-extrabold text-stone-900 leading-tight mb-6">
+                    Secure Your Spot on the <span class="text-transparent bg-clip-text bg-gradient-to-r from-stone-700 to-stone-500">LAX Terminals 2 & 5</span> Project.
+                </h1>
+                <p class="text-lg text-stone-600 mb-8 leading-relaxed">
+                    We are recruiting 3 senior construction specialists for a high-stakes infrastructure upgrade. Prevailing wage rates apply for this 8-month contract.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <div class="flex items-center space-x-3 bg-stone-50 px-4 py-3 rounded-lg border border-stone-200">
+                        <span class="text-2xl">💰</span>
+                        <div>
+                            <p class="text-xs text-stone-500 uppercase tracking-wide font-bold">Rate</p>
+                            <p class="font-bold text-stone-900">$80.00 / Hour</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 bg-stone-50 px-4 py-3 rounded-lg border border-stone-200">
+                        <span class="text-2xl">📅</span>
+                        <div>
+                            <p class="text-xs text-stone-500 uppercase tracking-wide font-bold">Duration</p>
+                            <p class="font-bold text-stone-900">Jan '26 - Aug '26</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Qualification Check (Restored Text Color) -->
+            <div class="bg-stone-50 p-6 rounded-xl border border-stone-200 shadow-sm relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl pointer-events-none text-stone-200">🛡️</div>
+                <h3 class="text-xl font-bold mb-4 z-10 relative text-stone-900">Are you qualified?</h3>
+                <p class="text-sm text-stone-600 mb-6 z-10 relative">Check the critical requirements below to unlock the application details.</p>
+                
+                <div class="space-y-3 z-10 relative" id="qual-checklist">
+                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                        <input type="checkbox" class="mt-1 w-5 h-5 text-amber-600 border-stone-300 rounded focus:ring-amber-500 qual-check">
+                        <span class="text-stone-700 text-sm">Pass LAX Badging (Background & Fingerprints)</span>
+                    </label>
+                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                        <input type="checkbox" class="mt-1 w-5 h-5 text-amber-600 border-stone-300 rounded focus:ring-amber-500 qual-check">
+                        <span class="text-stone-700 text-sm">Commercial Construction Experience (Senior Level)</span>
+                    </label>
+                    <label class="flex items-start space-x-3 cursor-pointer p-2 hover:bg-white rounded transition">
+                        <input type="checkbox" class="mt-1 w-5 h-5 text-amber-600 border-stone-300 rounded focus:ring-amber-500 qual-check">
+                        <span class="text-stone-700 text-sm">Comfortable with Heights & Scissor Lifts</span>
+                    </label>
+                </div>
+
+                <div id="qual-status" class="mt-6 p-3 bg-stone-200 text-stone-500 text-center rounded font-medium text-sm transition-colors duration-300">
+                    Select all to proceed
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+
+        <!-- Section 1: Project Scope (Restored Text Color + LLM Features + Redesigned Layout) -->
+        <section id="briefing">
+            <!-- Header & TTS -->
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-stone-900 mb-2">Project Briefing & Scope</h2>
+                    <p class="text-stone-600 max-w-2xl">Overview of ERRCS installation duties and safety requirements.</p>
+                </div>
+                <button id="tts-play-btn" onclick="generateAndPlayTTS()" class="mt-4 md:mt-0 flex items-center px-5 py-2.5 bg-emerald-600 text-white text-sm font-medium rounded-full shadow-sm hover:bg-emerald-700 transition disabled:bg-emerald-400 disabled:cursor-not-allowed">
+                    <span class="mr-2"><i class="fa-solid fa-volume-high"></i></span> Listen to Briefing
+                </button>
+            </div>
+
+            <!-- Main Content Area: Split View -->
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Left Column: Briefing Text & Scope Cards (2/3 width) -->
+                <div class="lg:w-2/3 space-y-8">
+                    <!-- Briefing Text -->
+                    <div class="prose prose-stone max-w-none">
+                        <p id="briefing-text" class="text-stone-600 leading-relaxed text-lg">
+                            This section outlines the specific responsibilities for the <strong>Emergency Responder Radio Communication System (ERRCS)</strong> installation. This is a critical infrastructure project ensuring safety communications within the airport terminals. The work environment requires precision, adherence to safety protocols, and the ability to work autonomously during night shifts.
+                        </p>
+                    </div>
+
+                    <!-- Scope Cards Grid (Updated Layout & Icons) -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="scope">
+                        <!-- Card 1 -->
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-amber-300 transition duration-300 group">
+                            <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-paint-roller"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-stone-900">Drywall & Finish</h3>
+                            <p class="text-sm text-stone-500">Precision cutting, patching, and painting to restore surfaces to airport standards after installation.</p>
+                        </div>
+                        <!-- Card 2 -->
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-stone-400 transition duration-300 group">
+                            <div class="w-12 h-12 bg-stone-100 text-stone-600 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-hammer"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-stone-900">Concrete Work</h3>
+                            <p class="text-sm text-stone-500">Light concrete trenching required for cabling pathways and conduit access points.</p>
+                        </div>
+                        <!-- Card 3 -->
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-blue-300 transition duration-300 group">
+                            <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-elevator"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-stone-900">Heights & Lifts</h3>
+                            <p class="text-sm text-stone-500">Operation of scissor lifts to access ceiling plenums (20ft+). Safety certification is a plus.</p>
+                        </div>
+                        <!-- Card 4 -->
+                        <div class="bg-white p-6 rounded-xl border border-stone-200 shadow-sm hover:shadow-md hover:border-purple-300 transition duration-300 group">
+                            <div class="w-12 h-12 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition">
+                                <i class="fa-solid fa-id-card"></i>
+                            </div>
+                            <h3 class="font-bold text-lg mb-2 text-stone-900">Security Access</h3>
+                            <p class="text-sm text-stone-500">Full LAX SIDA badging required. A clean FBI background check is non-negotiable.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Safety Tip Generator (1/3 width, Sticky) -->
+                <div class="lg:w-1/3">
+                    <div class="sticky top-24 p-6 bg-gradient-to-br from-stone-100 to-white rounded-xl border border-stone-200 shadow-sm">
+                        <div class="flex items-center space-x-2 mb-4">
+                            <span class="text-amber-500 text-xl"><i class="fa-solid fa-helmet-safety"></i></span>
+                            <h3 class="font-bold text-xl text-stone-900">Safety Assistant</h3>
+                        </div>
+                        <p class="text-sm text-stone-600 mb-6">
+                            Working at night at LAX requires heightened awareness. Click below to generate a site-specific safety tip using AI.
+                        </p>
+                        <button id="generate-tip-btn" onclick="generateSafetyTip()" class="w-full px-4 py-3 bg-stone-900 text-white text-sm font-bold rounded-lg shadow hover:bg-stone-800 transition disabled:bg-stone-600 disabled:cursor-not-allowed flex justify-center items-center">
+                            <span>Generate Tip</span>
+                            <span class="ml-2"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+                        </button>
+                        
+                        <!-- Output Area -->
+                        <div id="safety-tip-output" class="mt-6 pt-6 border-t border-stone-100 min-h-[100px]">
+                            <p class="text-stone-400 text-sm italic text-center">Tip will appear here...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 2: Financials (Restored Accent Color) -->
+        <section id="earnings" class="bg-white rounded-2xl p-8 border border-stone-200 shadow-sm">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-1">
+                    <h2 class="text-3xl font-bold text-stone-900 mb-4">Financial Impact</h2>
+                    <p class="text-stone-600 mb-6 text-sm">
+                        This project pays <strong>2026 Prevailing Wage</strong> at an estimated $80.00/hour. The dashboard defaults to the 25-hour minimum guarantee (5 hours per night). Use the slider to estimate earnings up to 50 hours per week.
+                    </p>
+                    
+                    <div class="bg-stone-50 p-6 rounded-xl border border-stone-200">
+                        <label class="block text-xs font-bold uppercase text-stone-500 mb-2">Avg. Hours Per Week</label>
+                        <!-- DEFAULT VALUE IS 25 -->
+                        <input type="range" id="hours-slider" min="25" max="50" value="25" class="w-full h-2 bg-stone-300 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                        <div class="flex justify-between mt-2 mb-6">
+                            <span class="text-xs text-stone-400">Min Guarantee (25h)</span>
+                            <span id="hours-display" class="font-bold text-emerald-700 text-lg">25 hrs</span>
+                            <span class="text-xs text-stone-400">Overtime (50h)</span>
+                        </div>
+
+                        <div class="space-y-4 pt-4 border-t border-stone-200">
+                            <div class="flex justify-between items-center">
+                                <span class="text-stone-600 text-sm">Weekly Gross:</span>
+                                <span id="weekly-pay" class="font-bold text-stone-900 text-lg">$2,000</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-stone-600 text-sm">Monthly Gross:</span>
+                                <span id="monthly-pay" class="font-bold text-stone-900 text-lg">$8,000</span>
+                            </div>
+                            <!-- Restored Accent Color -->
+                            <div class="p-3 bg-emerald-50 border border-emerald-100 rounded-lg flex justify-between items-center mt-2">
+                                <span class="text-emerald-800 font-bold text-sm">Total Contract (Est.):</span>
+                                <span id="total-pay" class="font-bold text-emerald-700 text-xl">$64,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 flex flex-col justify-center">
+                    <div class="mb-4">
+                        <h3 class="font-bold text-stone-800">Cumulative Earnings Trajectory</h3>
+                        <p class="text-xs text-stone-500">Comparing LAX Prevailing Wage ($80/hr) vs. Standard Commercial Rate (Est. $40/hr)</p>
+                    </div>
+                    <!-- Chart Container as required -->
+                    <div class="chart-container">
+                        <canvas id="earningsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Timeline (Restored Accent Color) -->
+        <section id="timeline">
+            <h2 class="text-3xl font-bold text-stone-900 mb-4">Project Timeline</h2>
+            <p class="text-stone-600 max-w-2xl mb-12">
+                Key milestones for the engagement. Badging is the critical first step before mobilization in January.
+            </p>
+
+            <div class="relative border-l-4 border-stone-200 ml-4 space-y-12">
+                <!-- Item 1 -->
+                <div class="relative pl-8">
+                    <!-- Restored Accent Color -->
+                    <div class="absolute -left-3 top-0 w-6 h-6 bg-stone-900 rounded-full border-4 border-stone-50"></div>
+                    <h4 class="font-bold text-lg text-stone-900">Now / Immediate</h4>
+                    <p class="text-stone-500 font-medium mb-1">Recruitment & Badging Application</p>
+                    <p class="text-sm text-stone-600 max-w-lg">Submit details, initiate background checks, and schedule fingerprinting at LAX Security Badge Office.</p>
+                </div>
+                <!-- Item 2 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-3 top-0 w-6 h-6 bg-amber-500 rounded-full border-4 border-stone-50"></div>
+                    <h4 class="font-bold text-lg text-stone-900">January 2026</h4>
+                    <p class="text-stone-500 font-medium mb-1">Project Start</p>
+                    <p class="text-sm text-stone-600 max-w-lg">Mobilization to Terminals 2 & 5. Night shift orientation and initial trenching/rough-in work begins.</p>
+                </div>
+                <!-- Item 3 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-3 top-0 w-6 h-6 bg-stone-300 rounded-full border-4 border-stone-50"></div>
+                    <h4 class="font-bold text-lg text-stone-900">Jan - Aug 2026</h4>
+                    <p class="text-stone-500 font-medium mb-1">Installation Phase</p>
+                    <p class="text-sm text-stone-600 max-w-lg">Continuous installation of ERRCS components, requiring drywall cutting, patching, painting, and lift work.</p>
+                </div>
+                <!-- Item 4 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-3 top-0 w-6 h-6 bg-stone-300 rounded-full border-4 border-stone-50"></div>
+                    <h4 class="font-bold text-lg text-stone-900">August 2026</h4>
+                    <p class="text-stone-500 font-medium mb-1">Project Closeout</p>
+                    <p class="text-sm text-stone-600 max-w-lg">Final inspections, touch-ups, and demobilization.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / Contact (Restored Colors) -->
+        <footer id="contact" class="bg-stone-900 text-stone-300 rounded-t-3xl mt-12 py-12 px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-white mb-6">Ready to join the crew?</h2>
+                <p class="text-lg mb-8 max-w-2xl mx-auto">
+                    We are looking for reliability and skill. If you meet the badging and experience requirements, we want to hear from you immediately.
+                </p>
+                
+                <div class="bg-stone-800 p-8 rounded-xl inline-block text-left w-full max-w-md border border-stone-700">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="bg-stone-700 p-2 rounded-full text-white"><i class="fa-solid fa-user"></i></div>
+                        <div>
+                            <p class="text-xs text-stone-400 uppercase">Contact Name</p>
+                            <p class="font-bold text-white">Nick Chokshi</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 mb-4">
+                        <div class="bg-stone-700 p-2 rounded-full text-white"><i class="fa-solid fa-building"></i></div>
+                        <div>
+                            <p class="text-xs text-stone-400 uppercase">Company</p>
+                            <p class="font-bold text-white">Versatile Consulting</p>
+                        </div>
+                    </div>
+                    <!-- Updated Contact Field -->
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-stone-700 p-2 rounded-full text-white"><i class="fa-solid fa-envelope"></i></div>
+                        <div>
+                            <p class="text-xs text-stone-400 uppercase">Email</p>
+                            <p class="font-bold text-white break-all">nick@partnerwithversatile.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-sm text-stone-500">
+                    &copy; 2025 Versatile Consulting. All Rights Reserved.
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        // --- LLM API Configuration and Utilities ---
+        const apiKey = ""; 
+        const TEXT_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+        const TTS_MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+        // Utility for exponential backoff (retry logic)
+        async function fetchWithBackoff(url, options, maxRetries = 5) {
+            for (let attempt = 0; attempt < maxRetries; attempt++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) return response;
+                    if (response.status === 429 || response.status >= 500) {
+                        if (attempt < maxRetries - 1) {
+                            const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            continue;
+                        }
+                    }
+                    throw new Error(`API request failed with status: ${response.status}`);
+                } catch (error) {
+                    if (attempt === maxRetries - 1) throw error;
+                    const delay = Math.pow(2, attempt) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+        
+        // --- TTS Utility Functions ---
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bitDepth = 16;
+            const numSamples = pcm16.length;
+            const bytesPerSample = bitDepth / 8;
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+
+            const buffer = new ArrayBuffer(44 + numSamples * bytesPerSample);
+            const view = new DataView(buffer);
+
+            // Write WAV file header
+            view.setUint32(0, 0x52494646, false); // "RIFF"
+            view.setUint32(4, 36 + numSamples * bytesPerSample, true); // Chunk size
+            view.setUint32(8, 0x57415645, false); // "WAVE"
+            
+            // FMT chunk
+            view.setUint32(12, 0x666d7420, false); // "fmt "
+            view.setUint32(16, 16, true); // Sub-chunk size (16 for PCM)
+            view.setUint16(20, 1, true); // Audio format (1 for PCM)
+            view.setUint16(22, numChannels, true); // Number of channels
+            view.setUint32(24, sampleRate, true); // Sample rate
+            view.setUint32(28, byteRate, true); // Byte rate
+            view.setUint16(32, blockAlign, true); // Block align
+            view.setUint16(34, bitDepth, true); // Bit depth
+
+            // DATA chunk
+            view.setUint32(36, 0x64617461, false); // "data"
+            view.setUint32(40, numSamples * bytesPerSample, true); // Sub-chunk 2 size
+
+            // Write PCM data
+            let offset = 44;
+            for (let i = 0; i < numSamples; i++) {
+                view.setInt16(offset, pcm16[i], true);
+                offset += 2;
+            }
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+
+        // --- LLM Feature Functions ---
+
+        // TTS Reader Feature
+        async function generateAndPlayTTS() {
+            const button = document.getElementById('tts-play-btn');
+            const originalContent = button.innerHTML;
+            const textToSpeak = document.getElementById('briefing-text').innerText;
+
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Generating Audio...';
+
+            const payload = {
+                contents: [{ parts: [{ text: `Say this in a clear, professional, informative voice: ${textToSpeak}` }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Charon" }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            try {
+                const response = await fetchWithBackoff(TTS_MODEL_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                
+                if (part && part.inlineData && part.inlineData.data && part.inlineData.mimeType.includes("rate=")) {
+                    const audioData = part.inlineData.data;
+                    const sampleRate = parseInt(part.inlineData.mimeType.match(/rate=(\d+)/)[1], 10);
+                    
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+
+                    const audio = new Audio(audioUrl);
+                    audio.play();
+
+                    button.innerHTML = '<i class="fa-solid fa-volume-high mr-2"></i> Playing Briefing...';
+                    audio.onended = () => {
+                        button.innerHTML = originalContent;
+                        button.disabled = false;
+                        URL.revokeObjectURL(audioUrl); 
+                    };
+                } else {
+                    button.innerHTML = '❌ Audio Error';
+                }
+
+            } catch (error) {
+                button.innerHTML = '❌ TTS Failed';
+            } finally {
+                if (button.innerHTML.includes('Generating') || button.innerHTML.includes('Failed')) {
+                    setTimeout(() => {
+                        button.innerHTML = originalContent;
+                        button.disabled = false;
+                    }, 3000);
+                }
+            }
+        }
+
+
+        // Safety Tip Generator Feature
+        async function generateSafetyTip() {
+            const outputDiv = document.getElementById('safety-tip-output');
+            const button = document.getElementById('generate-tip-btn');
+            
+            outputDiv.innerHTML = '<p class="text-stone-500 italic text-center"><i class="fa-solid fa-spinner fa-spin mr-2"></i> Generating tailored safety reminder...</p>';
+            button.disabled = true;
+
+            const userQuery = "Provide one critical safety tip for a construction worker performing drywall cutting, light concrete trenching, and operating a scissor lift at night in a highly secure commercial airport (LAX). Focus on a high-risk scenario relevant to the job scope (heights/lifts/night). Keep it concise, professional, and actionable.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: "You are a highly experienced Commercial Safety Officer for complex infrastructure projects. Your goal is to provide specific, actionable safety advice." }]
+                },
+            };
+
+            try {
+                const response = await fetchWithBackoff(TEXT_MODEL_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Error generating tip.";
+
+                outputDiv.innerHTML = `
+                    <div class="p-4 bg-amber-50 rounded-lg border border-amber-200 animate-fade-in">
+                        <p class="font-bold text-amber-700 mb-2 flex items-center">
+                            <i class="fa-solid fa-triangle-exclamation mr-2"></i> Safety Tip of the Shift
+                        </p>
+                        <p class="text-sm text-amber-900 leading-relaxed">${text}</p>
+                    </div>
+                `;
+
+            } catch (error) {
+                outputDiv.innerHTML = `<p class="text-red-600 text-sm text-center">Error: Could not retrieve safety tip. (${error.message})</p>`;
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        // --- Core Dashboard Logic ---
+
+        // 1. Qualification Checklist Logic
+        const checkBoxes = document.querySelectorAll('.qual-check');
+        const statusBox = document.getElementById('qual-status');
+
+        function updateChecklistStatus() {
+            const allChecked = Array.from(checkBoxes).every(cb => cb.checked);
+            if (allChecked) {
+                statusBox.textContent = "✅ Qualifications Met. Please Contact Us Below.";
+                statusBox.className = "mt-6 p-3 bg-emerald-100 text-emerald-800 border border-emerald-200 text-center rounded font-bold text-sm transition-colors duration-300 shadow-sm";
+            } else {
+                statusBox.textContent = "Select all critical requirements above to proceed.";
+                statusBox.className = "mt-6 p-3 bg-stone-200 text-stone-500 text-center rounded font-medium text-sm transition-colors duration-300";
+            }
+        }
+
+        checkBoxes.forEach(cb => {
+            cb.addEventListener('change', updateChecklistStatus);
+        });
+
+        // 2. Earnings Calculator Logic
+        const hourlyRate = 80;
+        const contractMonths = 8;
+        const weeksPerMonth = 4; // Simplified
+        
+        const slider = document.getElementById('hours-slider');
+        const displayHours = document.getElementById('hours-display');
+        const displayWeekly = document.getElementById('weekly-pay');
+        const displayMonthly = document.getElementById('monthly-pay');
+        const displayTotal = document.getElementById('total-pay');
+
+        // Function to format currency
+        const fmtMoney = (num) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(num);
+
+        function updateEarnings() {
+            const hours = parseInt(slider.value);
+            displayHours.innerText = `${hours} hrs`;
+            
+            const weekly = hours * hourlyRate;
+            const monthly = weekly * weeksPerMonth;
+            const total = monthly * contractMonths;
+
+            displayWeekly.innerText = fmtMoney(weekly);
+            displayMonthly.innerText = fmtMoney(monthly);
+            displayTotal.innerText = fmtMoney(total);
+
+            // Update Chart Data Dynamically
+            updateChartData(total);
+        }
+
+        slider.addEventListener('input', updateEarnings);
+
+        // 3. Chart.js Implementation
+        let earningsChart;
+
+        function initChart() {
+            const ctx = document.getElementById('earningsChart').getContext('2d');
+            
+            // Standard Rate assumption: $40/hr (half of prevailing)
+            const standardRate = 40;
+            const standardTotal = standardRate * 40 * 4 * 8; // Fixed 40hr week reference
+
+            // Initial Total for This Job, calculated based on the new default minimum of 25 hours.
+            const initialHours = 25; 
+            const initialThisJobTotal = hourlyRate * initialHours * 4 * 8; 
+
+            const labels = ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6', 'Month 7', 'Month 8'];
+            
+            // Generate cumulative data points
+            const generateData = (total) => {
+                const monthly = total / 8;
+                let accumulator = 0;
+                return labels.map(() => {
+                    accumulator += monthly;
+                    return accumulator;
+                });
+            };
+
+            const dataStandard = generateData(standardTotal);
+            const dataThisJob = generateData(initialThisJobTotal);
+
+            earningsChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            // Restored color
+                            label: 'This LAX Project ($80/hr, Min 25h/wk)',
+                            data: dataThisJob,
+                            borderColor: '#059669', // Emerald 600
+                            backgroundColor: 'rgba(5, 150, 105, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Standard Commercial Job (~$40/hr)',
+                            data: dataStandard,
+                            borderColor: '#a8a29e', // Stone 400
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false, // Critical for container responsiveness
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(context.parsed.y);
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#e7e5e4' // Stone 200
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value / 1000 + 'k';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChartData(newTotal) {
+            if(!earningsChart) return;
+            
+            // Re-calculate the "This Job" curve based on slider input
+            const monthly = newTotal / 8;
+            let accumulator = 0;
+            const newData = [];
+            for(let i=0; i<8; i++) {
+                accumulator += monthly;
+                newData.push(accumulator);
+            }
+
+            earningsChart.data.datasets[0].data = newData;
+            earningsChart.update();
+        }
+
+        // Initialize on load
+        window.addEventListener('load', () => {
+            updateChecklistStatus(); 
+            initChart();
+            updateEarnings(); 
+        });
+
+    </script>
+</body>
+</html>
